@@ -1,6 +1,9 @@
 name: Test
 
 on: push
+defaults:
+  run:
+    working-directory: ./ci-cd-demo
 
 jobs:
   setup:
@@ -23,9 +26,7 @@ jobs:
     needs: install-deps
     steps:
       - name: Run linting checks
-        run: |
-          ci-cd-demo/ci-cd-demo
-          yarn lint
+        run: yarn lint
 
   build:
     runs-on: ubuntu-latest
