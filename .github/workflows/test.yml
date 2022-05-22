@@ -28,6 +28,7 @@ jobs:
       - name: Run linting checks
         run: |
           ls
+          pwd
           yarn lint
 
   build:
