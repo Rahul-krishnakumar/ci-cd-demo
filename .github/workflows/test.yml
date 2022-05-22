@@ -16,7 +16,10 @@ jobs:
     needs: setup
     steps:
       - name: Install dependencies
-        run: yarn install
+        run: |
+          pwd
+          yarn install
+          ls
 
   lint-code:
     runs-on: ubuntu-latest
