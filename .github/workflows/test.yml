@@ -1,49 +1,21 @@
+# .github/workflows/test.yml
+
 name: Test
-
-on: push
-
+on:
+  push: # A push to any branch triggers the workflow
 jobs:
-  setup:
-    runs-on: ubuntu-latest
+  verify-code-integrity-and-run-tests:
+    runs-on: ubuntu-latest # runs the job on the latest version of Ubuntu (Linux)
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v3 # pull the git repository and set it as the current working directory
+      - uses: actions/setup-node@v3 # set ups Node.js in the runner
         with:
-          node-version: 16
-
-  install-deps:
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      - name: Install dependencies
-        run: |
-          pwd
-          yarn install
-          ls
-
-  lint-code:
-    runs-on: ubuntu-latest
-    needs: install-deps
-    defaults:
-      run:
-        working-directory: ./
-    steps:
-      - name: Run linting checks
-        run: |
-          ls
-          pwd
-          yarn lint
-
-  build:
-    runs-on: ubuntu-latest
-    needs: lint-code
-    steps:
-      - name: Build application
+          node-version: "16"
+      - name: Install Dependencies
+        run: yarn install
+      - name: Run Linting Checks
+        run: yarn lint
+      - name: Build Application
         run: yarn build
-
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Run tests
+      - name: Run Tests
         run: yarn test
