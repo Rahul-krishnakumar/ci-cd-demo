@@ -23,10 +23,12 @@ jobs:
     needs: install-deps
     defaults:
       run:
-        working-directory: ./ci-cd-demo
+        working-directory: ./
     steps:
       - name: Run linting checks
-        run: yarn lint
+        run: |
+          ls
+          yarn lint
 
   build:
     runs-on: ubuntu-latest
