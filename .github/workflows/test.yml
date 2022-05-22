@@ -1,0 +1,40 @@
+name: Test
+
+on: push
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+  install-deps:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Install dependencies
+        run: yarn install
+
+  lint-code:
+    runs-on: ubuntu-latest
+    needs: install-deps
+    steps:
+      - name: Run linting checks
+        run: yarn lint
+
+  build:
+    runs-on: ubuntu-latest
+    needs: lint-code
+    steps:
+      - name: Build application
+        run: yarn build
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Run tests
+        run: yarn test
