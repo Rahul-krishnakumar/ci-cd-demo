@@ -23,7 +23,9 @@ jobs:
     needs: install-deps
     steps:
       - name: Run linting checks
-        run: yarn lint
+        run: |
+          ci-cd-demo/ci-cd-demo
+          yarn lint
 
   build:
     runs-on: ubuntu-latest
